@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <title>Flex Tactical Operations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- Three.js for 3D Cargo Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <!-- Tactical Navigation -->
+    <nav class="tactical-nav">
+        <button id="nav-time" class="active">Time Ops (Capacity)</button>
+        <button id="nav-space">Space Ops (Cargo)</button>
+    </nav>
+
+    <!-- PANE: Time Operations -->
+    <div id="time-ops-view" class="dashboard-container">
+        <div class="panel capacity-gauge-pane">
+            <h2>Operations Capacity</h2>
+            <div class="metric-readout">
+                <span id="deployable-hours">--</span>
+                <span class="metric-label">Available Hours</span>
+            </div>
+            <div class="controls">
+                <input type="number" id="shift-duration" placeholder="Hours (e.g., 3.5)" step="0.5">
+                <button id="btn-log-shift">Log Completed Route</button>
+            </div>
+            <div class="history-log">
+                <h3>7-Day Rolling Ledger</h3>
+                <ul id="shift-history-list"></ul>
+            </div>
+        </div>
+
+        <div class="panel surge-monitor-pane">
+            <h2>Surge Market Defense</h2>
+            <div class="metric-readout">
+                <span id="buffer-status">Active</span>
+                <span class="metric-label">2AM-5AM Reserve (4.5h)</span>
+            </div>
+            <div class="system-status">
+                <p><strong>System Clock:</strong> <span id="local-time">--:--</span></p>
+                <p><strong>Buffer Expiration:</strong> 05:01 AM</p>
+            </div>
+            <div class="controls tactical-override">
+                <button id="btn-force-release" class="btn-danger">Override: Release Buffer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANE: Space Operations (Hidden initially) -->
+    <div id="cargo-ops-view" class="dashboard-container hidden">
+        <div class="panel visualizer-pane">
+            <h2>Sentra SV Cargo Matrix</h2>
+            <div id="3d-canvas-container"></div>
+        </div>
+        <div class="panel sequence-pane">
+            <h2>Package Queue</h2>
+            <div class="controls">
+                <select id="pkg-size">
+                    <option value="0.2">Envelope</option>
+                    <option value="0.5">Small Box</option>
+                    <option value="1.0">Medium Box</option>
+                    <option value="1.5">Large/Oversize</option>
+                </select>
+                <button id="btn-add-pkg">Sequence Package</button>
+                <button id="btn-clear-cargo" class="btn-danger" style="margin-top: 10px;">Clear Cargo</button>
+            </div>
+            <ul id="package-list"></ul>
+        </div>
+    </div>
+
+    <script src="FlexCapacityManager.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
